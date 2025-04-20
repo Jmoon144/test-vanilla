@@ -17,10 +17,10 @@ describe("TodoFilterButtons", () => {
     const el = comp.getElement();
 
     expect(el.querySelector('[data-filter="all"]')?.textContent).toContain(
-      "All (2)"
+      "All (2)",
     );
     expect(el.querySelector(".clear-completed")?.textContent).toContain(
-      "Clear Completed (0)"
+      "Clear Completed (0)",
     );
   });
 
@@ -30,7 +30,7 @@ describe("TodoFilterButtons", () => {
     const el = comp.getElement();
 
     const activeBtn = el.querySelector(
-      '[data-filter="active"]'
+      '[data-filter="active"]',
     ) as HTMLButtonElement;
     activeBtn.click();
 

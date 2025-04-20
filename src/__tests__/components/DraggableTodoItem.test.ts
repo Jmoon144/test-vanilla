@@ -25,7 +25,7 @@ describe("DraggableTodoItem", () => {
 
     expect(el.classList.contains("todo-item")).toBe(true);
     expect(el.querySelector(".todo-content")?.textContent).toBe(
-      "드래그 테스트"
+      "드래그 테스트",
     );
     expect(el.querySelector(".drag-handle")?.innerHTML).toBe("☰");
     expect(el.querySelector(".delete-btn")?.textContent).toBe("×");

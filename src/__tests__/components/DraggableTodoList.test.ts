@@ -22,7 +22,7 @@ describe("DraggableTodoList", () => {
     const el = list.getElement();
 
     expect(el.querySelector(".todo-item")?.textContent).toContain(
-      "리스트 테스트"
+      "리스트 테스트",
     );
   });
 

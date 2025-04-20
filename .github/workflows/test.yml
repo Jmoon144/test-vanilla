@@ -3,7 +3,7 @@ name: CI-TEST
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   test:
@@ -18,19 +18,19 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Cache pnpm modules
+      - name: NPM Cache
+        id: npm-cache
         uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ./node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-
+            ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install Dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Run Test
-        run: pnpm run test
+        run: npm test

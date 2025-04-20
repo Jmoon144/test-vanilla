@@ -1,12 +1,12 @@
-name: CI-TEST
+name: CI-Lint
 
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,5 +32,5 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Run Test
-        run: npm test
+      - name: Run lint
+        run: npm run lint:fix

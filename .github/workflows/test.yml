@@ -18,19 +18,19 @@ jobs:
         with:
           node-version: 18
 
-      - name: NPM Cache
-        id: npm-cache
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Cache pnpm modules
         uses: actions/cache@v3
         with:
-          path: |
-            ./node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-pnpm-
 
-      - name: Install Dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run Test
-        run: npm test
+        run: pnpm run test

@@ -4,12 +4,15 @@ export class TodoStore {
   private todos: Todo[] = [];
   private listeners: (() => void)[] = [];
   private filter: TodoFilter = "all";
+  private static idCounter = 0;
 
-  constructor() {
-    this.loadTodos();
+  constructor(private skipLoad: boolean = false) {
+    if (!this.skipLoad) {
+      this.loadTodos();
+    }
   }
 
-  private loadTodos() {
+  protected loadTodos() {
     const saved = localStorage.getItem("todos");
     if (saved) {
       this.todos = JSON.parse(saved).map((t: any) => ({
@@ -19,7 +22,7 @@ export class TodoStore {
     }
   }
 
-  private saveTodos() {
+  protected saveTodos() {
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
@@ -60,7 +63,7 @@ export class TodoStore {
 
   addTodo(content: string) {
     const newTodo: Todo = {
-      id: Date.now().toString(),
+      id: (++TodoStore.idCounter).toString(),
       content,
       completed: false,
       order: 0,
@@ -74,7 +77,7 @@ export class TodoStore {
 
   toggleTodo(id: string) {
     this.todos = this.todos.map((t) =>
-      t.id === id ? { ...t, completed: !t.completed } : t,
+      t.id === id ? { ...t, completed: !t.completed } : t
     );
     this.saveTodos();
     this.notifyListeners();

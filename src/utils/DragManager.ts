@@ -1,7 +1,7 @@
 export interface DragOptions {
   element: HTMLElement;
   onDragStart?: () => void;
-  onDragEnd?: (targetIndex: number | null) => void;
+  onDragEnd?: (_index: number | null) => void;
   scrollThreshold?: number;
   scrollSpeed?: number;
 }
@@ -20,7 +20,7 @@ export class DragManager {
   private previewTimer: number | null = null;
   private readonly previewDelay = 2000;
   private onDragStart: () => void;
-  private onDragEnd: (targetIndex: number | null) => void;
+  private onDragEnd: (_index: number | null) => void;
   private options: { scrollThreshold: number; scrollSpeed: number };
   private scrollInterval: number | null = null;
   private originalParent: HTMLElement | null = null;
@@ -28,7 +28,9 @@ export class DragManager {
   constructor(options: DragOptions) {
     this.element = options.element;
     this.onDragStart = options.onDragStart || (() => {});
-    this.onDragEnd = options.onDragEnd || (() => {});
+    this.onDragEnd = (_index) => {
+      if (options.onDragEnd) options.onDragEnd(_index);
+    };
     this.options = {
       scrollThreshold: options.scrollThreshold ?? 80,
       scrollSpeed: options.scrollSpeed ?? 15,
@@ -135,10 +137,10 @@ export class DragManager {
     const container = this.element.parentElement;
     if (!container) return;
     const items = Array.from(container.children).filter(
-      (element) =>
-        element instanceof HTMLElement &&
-        element.classList.contains("todo-item") &&
-        element !== this.element,
+      (el) =>
+        el instanceof HTMLElement &&
+        el.classList.contains("todo-item") &&
+        el !== this.element,
     ) as HTMLElement[];
 
     const dragMiddleY = this.currentY + this.element.offsetHeight / 2;
@@ -182,7 +184,7 @@ export class DragManager {
       if (!this.placeholder) return;
       this.previewElement = this.element.cloneNode(true) as HTMLElement;
       Object.assign(this.previewElement.style, {
-        filter: "blur(0.125rem)",
+        filter: "blur(2px)",
         opacity: "0.5",
         pointerEvents: "none",
       });
@@ -195,15 +197,18 @@ export class DragManager {
 
   private getPlaceholderIndex(): number | null {
     if (!this.placeholder || !this.placeholder.parentElement) return null;
-    const allChildren = Array.from(this.placeholder.parentElement.children);
-    return allChildren.indexOf(this.placeholder);
+    const siblings = Array.from(this.placeholder.parentElement.children).filter(
+      (el) => el.classList.contains("todo-item"),
+    );
+    const index = siblings.indexOf(this.placeholder);
+    return index === -1 ? siblings.length : index;
   }
 
   private clearPlaceholders() {
     if (!this.originalParent) return;
     this.originalParent
       .querySelectorAll<HTMLElement>(".todo-item-placeholder")
-      .forEach((element) => element.remove());
+      .forEach((p) => p.remove());
     if (this.previewElement) this.previewElement.remove();
     if (this.previewTimer) clearTimeout(this.previewTimer);
     this.placeholder = null;

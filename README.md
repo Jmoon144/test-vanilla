@@ -28,9 +28,9 @@
 ## 🧱 기술 스택
 
 - **Vanilla JavaScript + TypeScript**
-- **SCSS Module** – 컴포넌트 기반 스타일링
+- **CSS Module** – 컴포넌트 기반 스타일링
 - **Webpack + Babel** – 모던 빌드 환경 구성
-- **Jest + Testing Library** – 테스트 작성
+- **Jest** – 테스트 작성
 - **ESLint + Prettier** – 정적 분석 및 코드 스타일 통일
 
 ---

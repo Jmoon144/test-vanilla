@@ -138,7 +138,7 @@ export class DragManager {
       (element) =>
         element instanceof HTMLElement &&
         element.classList.contains("todo-item") &&
-        element !== this.element
+        element !== this.element,
     ) as HTMLElement[];
 
     const dragMiddleY = this.currentY + this.element.offsetHeight / 2;
@@ -159,7 +159,7 @@ export class DragManager {
       if (last) {
         this.insertPlaceholder(
           container,
-          last.nextSibling as HTMLElement | null
+          last.nextSibling as HTMLElement | null,
         );
       }
     }
@@ -188,7 +188,7 @@ export class DragManager {
       });
       this.placeholder.parentElement?.insertBefore(
         this.previewElement,
-        this.placeholder
+        this.placeholder,
       );
     }, this.previewDelay);
   }

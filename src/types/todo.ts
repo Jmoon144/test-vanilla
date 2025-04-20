@@ -1,4 +1,4 @@
-export type TodoFilter = 'all' | 'active' | 'completed';
+export type TodoFilter = "all" | "active" | "completed";
 
 export interface Todo {
   id: string;

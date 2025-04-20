@@ -55,19 +55,19 @@ export default class DraggableTodoItem {
 
   private setupEventListeners() {
     this.checkbox.addEventListener("change", () =>
-      this.store.toggleTodo(this.todo.id)
+      this.store.toggleTodo(this.todo.id),
     );
     this.content.addEventListener("click", () =>
-      this.store.toggleTodo(this.todo.id)
+      this.store.toggleTodo(this.todo.id),
     );
     this.deleteBtn.addEventListener("click", () =>
-      this.store.deleteTodo(this.todo.id)
+      this.store.deleteTodo(this.todo.id),
     );
 
     if (!this.todo.completed) {
       this.dragHandle.addEventListener(
         "mousedown",
-        this.handleMouseDown.bind(this)
+        this.handleMouseDown.bind(this),
       );
     }
   }
@@ -76,7 +76,7 @@ export default class DraggableTodoItem {
     if (this.todo.completed) return;
 
     const existingPlaceholders = document.querySelectorAll(
-      ".todo-item-placeholder"
+      ".todo-item-placeholder",
     );
     existingPlaceholders.forEach((placeholder) => placeholder.remove());
 
@@ -106,12 +106,12 @@ export default class DraggableTodoItem {
       if (wasCompleted && !todo.completed) {
         this.dragHandle.addEventListener(
           "mousedown",
-          this.handleMouseDown.bind(this)
+          this.handleMouseDown.bind(this),
         );
       } else if (!wasCompleted && todo.completed) {
         this.dragHandle.removeEventListener(
           "mousedown",
-          this.handleMouseDown.bind(this)
+          this.handleMouseDown.bind(this),
         );
       }
     }

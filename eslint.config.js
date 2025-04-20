@@ -1,10 +1,9 @@
-const js = require("@eslint/js");
-const parser = require("@typescript-eslint/parser");
-const tsPlugin = require("@typescript-eslint/eslint-plugin");
-const prettier = require("eslint-plugin-prettier");
+import eslintPluginPrettier from "eslint-plugin-prettier";
+import eslintPluginTS from "@typescript-eslint/eslint-plugin";
+import parser from "@typescript-eslint/parser";
+import js from "@eslint/js";
 
-/** @type {import("eslint").Linter.FlatConfig[]} */
-module.exports = [
+export default [
   js.configs.recommended,
   {
     files: ["**/*.{ts,js}"],
@@ -14,8 +13,8 @@ module.exports = [
       sourceType: "module",
     },
     plugins: {
-      "@typescript-eslint": tsPlugin,
-      prettier,
+      "@typescript-eslint": eslintPluginTS,
+      prettier: eslintPluginPrettier,
     },
     rules: {
       "prettier/prettier": "error",

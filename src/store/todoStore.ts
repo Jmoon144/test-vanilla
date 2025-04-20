@@ -74,7 +74,7 @@ export class TodoStore {
 
   toggleTodo(id: string) {
     this.todos = this.todos.map((t) =>
-      t.id === id ? { ...t, completed: !t.completed } : t
+      t.id === id ? { ...t, completed: !t.completed } : t,
     );
     this.saveTodos();
     this.notifyListeners();

@@ -66,7 +66,7 @@ export class TodoFilterButtons {
     this.el.querySelectorAll(".filter-btn").forEach((btn) => {
       btn.classList.toggle(
         "active",
-        (btn as HTMLElement).dataset.filter === current
+        (btn as HTMLElement).dataset.filter === current,
       );
     });
   }

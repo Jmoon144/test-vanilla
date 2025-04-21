@@ -41,7 +41,7 @@
 /src
   ├── components/        # TodoInput, TodoItem, Footer 등 UI 컴포넌트
   ├── store/             # 상태 관리 (Store, 상태 구독/업데이트 로직)
-  ├── styles/            # SCSS 모듈 (컴포넌트별 스타일)
+  ├── styles/            # CSS 모듈 (스타일)
   ├── types/             # 공통 타입 정의 (Todo, Drag 등)
   ├── utils/             # DragManager 등 유틸 클래스
   ├── App.ts             # 전체 앱 렌더링 엔트리
